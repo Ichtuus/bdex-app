@@ -23,6 +23,7 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
+    .addStyleEntry('style', './assets/styles/scss/main.scss')
     .addEntry('app', './assets/app/app.js')
 
     //.addEntry('page1', './assets/js/page1.js')

@@ -1,4 +1,4 @@
-version: "3.4"
+version: "2.3"
 
 services:
   php:
@@ -16,13 +16,19 @@ services:
       start_period: 30s
     environment:
       SYMFONY_VERSION:
+    networks:
+      - bdex-app
+    links:
+      - database
+    depends_on:
+      - database
 
   caddy:
     build:
       context: .
       target: symfony_caddy
     environment:
-      SERVER_NAME: my-note-hub.localhost
+      SERVER_NAME: bdex.localhost
     restart: unless-stopped
     ports:
       - "80:80"
@@ -30,25 +36,40 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
+    networks:
+      - bdex-app
+    links:
+      - php
+      - database
 
-###> doctrine/doctrine-bundle ###
   database:
-    image: postgres:${POSTGRES_VERSION:-13}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
-      POSTGRES_USER: ${POSTGRES_USER:-symfony}
+    image: "mysql:5.7"
     volumes:
-      - db-data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: bdex
+      MYSQL_USER: ichtus
+      MYSQL_PASSWORD: bdex
+    networks:
+      bdex-app:
+        ipv4_address: 172.119.1.3
+
+networks:
+  bdex-app:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.119.0.0/16
+          ip_range: 172.119.1.0/24
+          gateway: 172.119.0.254
 
 volumes:
   caddy_data:
   caddy_config:
-
 ###> doctrine/doctrine-bundle ###
-  db-data:
+  mysql_data:
+    driver: local
 ###< doctrine/doctrine-bundle ###
