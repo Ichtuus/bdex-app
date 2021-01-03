@@ -28,7 +28,7 @@ services:
       context: .
       target: symfony_caddy
     environment:
-      SERVER_NAME: bdex.localhost
+      SERVER_NAME: ${SERVER_NAME}
     restart: unless-stopped
     ports:
       - "80:80"
@@ -50,9 +50,9 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: bdex
-      MYSQL_USER: ichtus
-      MYSQL_PASSWORD: bdex
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     networks:
       bdex-app:
         ipv4_address: 172.119.1.3
