@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}My note hub{% endblock %}</title>
+        <title>{% block title %}Bdex{% endblock %}</title>
         {% block stylesheets %}
         {{ encore_entry_link_tags('style') }}
         {% endblock %}
@@ -14,6 +14,8 @@
     {% endblock %}
     {% block javascripts %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.js"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
     </body>
