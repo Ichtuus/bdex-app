@@ -24,7 +24,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addStyleEntry('style', './assets/styles/scss/main.scss')
-    .addEntry('app', './assets/app/app.js')
+    .addEntry('app', './assets/app/app.ts')
 
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
@@ -62,7 +62,7 @@ Encore
     // enables Vue.js support
     .enableVueLoader()
     // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
+    .enableTypeScriptLoader()
 
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher
