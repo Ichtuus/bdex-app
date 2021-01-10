@@ -44,4 +44,12 @@ class OauthController extends AbstractController
         return $this->redirectToRoute('your_homepage_route');
     }
 
+    /**
+     * @Route("logout", name="app_logout", methods={"GET"}, options={"expose" = true})
+     */
+    public function logout()
+    {
+        // controller can be blank: it will never be executed!
+    }
+
 }
